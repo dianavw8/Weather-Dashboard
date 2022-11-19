@@ -1,0 +1,30 @@
+.card, .card-body{
+  border-radius: 10px !important;
+  box-shadow: 5px 5px 5px darkslategrey;
+}
+
+.five-day-forecast {
+  position: relative;
+  width: 20%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.main-weather-icon {
+  border-style: none;
+  vertical-align: middle;
+}
+
+.city-search {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.625rem 0;
+  margin-left: 0.5rem;
+}
+
+.clear-search {
+  width: 100%;
+  padding: 0.75rem;
+  margin-left: 0.5rem;
+}
+
