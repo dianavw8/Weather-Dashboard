@@ -146,3 +146,42 @@ function fetchWeather(location) {
         console.error(err);
     });
 }
+function fetchCoords(search) {
+    var apiUrl = `${weatherApiRootUrl}/geo/1.0/direct?q=${search}&limit=5&appid=${weatherApiKey}`;
+    fetch(apiUrl).then(function(res) {
+        return res.json();
+    }).then(function(data) {
+        if (!data[0]) {
+            alert('Location not found');
+        } else {
+            appendToHistory(search);
+            fetchWeather(data[0]);
+        }
+    }).catch(function(err) {
+        console.error(err);
+    });
+}
+function handleSearchFormSubmit(e) {
+    // ignore blank searches
+    if (!searchInput.value) {
+        return;
+    }
+    e.preventDefault();
+    var search = searchInput.value.trim();
+    fetchCoords(search);
+    searchInput.value = '';
+}
+function handleSearchHistoryClick(e) {
+    var btn = e.target;
+    var search = btn.getAttribute('data-search');
+    fetchCoords(search);
+}
+function handleClearSearchHistoryClick(e) {
+    searchHistory = [];
+    localStorage.setItem('search-history', JSON.stringify(searchHistory));
+    renderSearchHistory();
+}
+initSearchHistory();
+searchForm.addEventListener('submit', handleSearchFormSubmit);
+searchHistoryContainer.addEventListener('click', handleSearchHistoryClick);
+clearSearchButton.addEventListener('click', handleClearSearchHistoryClick);
